@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PSCGirderTensioning.Views.JacksPage"
+             Title="{Binding Title}"
+             xmlns:local="clr-namespace:PSCGirderTensioning.ViewModels"  
+             xmlns:model="clr-namespace:PSCGirderTensioning.Models"  
+             x:Name="BrowseJacksPage"
+             BackgroundColor="{AppThemeBinding 
+                        Dark={StaticResource WindowBackgroundColorDark}, 
+                        Light={StaticResource WindowBackgroundColor}}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem x:DataType="local:JacksViewModel" Text="Add" Command="{Binding AddJackCommand}" />
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <RefreshView x:DataType="local:JacksViewModel" Command="{Binding LoadJacksCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+            <CollectionView x:Name="JacksListView"
+                ItemsSource="{Binding Jacks}"
+                SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10">
+                            <Frame Style="{StaticResource CoffeeCard}" HorizontalOptions="FillAndExpand">
+                                <StackLayout Padding="10" x:DataType="model:JackInfo">
+                                    <Label Text="{Binding jackingEndRef}" 
+                            LineBreakMode="WordWrap" 
+                            Style="{DynamicResource ListItemTextStyle}" 
+                            FontSize="16" />
+                                    <Label Text="{Binding jackEquation}" 
+                            LineBreakMode="NoWrap"
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="13" />
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                NumberOfTapsRequired="1"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:JacksViewModel}}, Path=JackTapped}"		
+                                CommandParameter="{Binding .}">
+                                        </TapGestureRecognizer>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>

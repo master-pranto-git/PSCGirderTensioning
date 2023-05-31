@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:PSCGirderTensioning.ViewModels" 
+             xmlns:models="clr-namespace:PSCGirderTensioning.Models"
+             x:Class="PSCGirderTensioning.Views.GirderDetailPage"
+             BackgroundColor="{AppThemeBinding 
+                        Dark={StaticResource WindowBackgroundColorDark}, 
+                        Light={StaticResource WindowBackgroundColor}}">
+    <ContentPage.BindingContext>
+        <local:GirderDetailViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Remove Girder" Command="{Binding RemoveGirderCommand}" />
+        <!--<ToolbarItem Text="Add Cable" Command="{Binding AddCableCommand}" />-->
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout Spacing="20" Padding="15">
+            <Label Text="{Binding BridgeName, Mode=OneWay}" FontSize="Medium"/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="{Binding SpanNoText, Mode=OneWay}" FontSize="Medium" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
+                <Label Text="{Binding GirderNoText, Mode=OneWay}" FontSize="Medium" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <Label Text="{Binding GirderLengthText, Mode=OneWay}" FontSize="Small" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+                <Label Text="{Binding GirderCastingDateText, Mode=OneWay}" FontSize="Small" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+                <!--<Label Text="{Binding GirderNoText, Mode=OneWay}" FontSize="Small" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>-->
+                <!--<Label Text="{Binding GirderLengthText, Mode=OneWay}" FontSize="Small" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>-->
+                <!--<Label Text="{Binding TotalCableNosText, Mode=OneWay}" FontSize="Small" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>-->
+            </StackLayout>
+            <Label Text="{Binding TotalCableNosText, Mode=OneWay}" FontSize="Small" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+            
+            <StackLayout>
+                <Label Text="Cable Details" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="CenterAndExpand"/>
+                <RefreshView Command="{Binding LoadCablesCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                    <CollectionView x:Name="CablesListView"
+                        ItemsSource="{Binding Cables}"
+                        SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="10">
+                                    <Frame Style="{StaticResource CoffeeCard}" HorizontalOptions="FillAndExpand">
+                                        <StackLayout Padding="10" x:DataType="models:CableInfo">
+
+                                            <Label Text="{Binding cableNoText}" 
+                                           LineBreakMode="NoWrap"
+                                           Style="{DynamicResource ListItemTextStyle}" 
+                                           FontSize="16" />
+
+                                            <Label Text="{Binding stressingStageOfCableText}" 
+                                           LineBreakMode="NoWrap"
+                                           Style="{DynamicResource ListItemDetailTextStyle}" 
+                                           FontSize="13" />
+
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer 
+                                                NumberOfTapsRequired="1"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:GirderDetailViewModel}}, Path=CableTapped}"		
+                                                CommandParameter="{Binding .}">
+                                                </TapGestureRecognizer>
+                                            </StackLayout.GestureRecognizers>
+                                        </StackLayout>
+                                    </Frame>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

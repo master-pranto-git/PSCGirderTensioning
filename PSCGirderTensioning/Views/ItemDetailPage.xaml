@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:PSCGirderTensioning.ViewModels" 
+             xmlns:model="clr-namespace:PSCGirderTensioning.Models" 
+             x:Class="PSCGirderTensioning.Views.ItemDetailPage"
+             x:DataType="local:ItemDetailViewModel"
+             Title="{Binding Title}"
+             BackgroundColor="{AppThemeBinding 
+                        Dark={StaticResource WindowBackgroundColorDark}, 
+                        Light={StaticResource WindowBackgroundColor}}">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Remove" Command="{Binding RemoveItemCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <StackLayout Spacing="20" Padding="15">
+        <Label Text="Bridge Name:" FontAttributes="Bold" FontSize="Medium" />
+        <Label Text="{Binding BridgeName}" FontSize="Medium"/>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="District:" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Label Text="{Binding District}" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Upazilla:" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Text="{Binding Upazilla}" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Package:" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Text="{Binding PackageNo}" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Span Nos:" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center" />
+            <Label Text="{Binding SpanNos}" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center"/>
+        </StackLayout>
+        <StackLayout>
+            <Label Text="Span Details" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="CenterAndExpand"/>
+            <RefreshView Command="{Binding LoadSpansCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                <CollectionView x:Name="SpansListView"
+                ItemsSource="{Binding Spans}"
+                SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10">
+                                <Frame Style="{StaticResource CoffeeCard}" HorizontalOptions="FillAndExpand">
+                                    <StackLayout Padding="10" x:DataType="model:SpanInfoDataModel">
+
+                                        <Label Text="{Binding SpanNoText}" 
+                                           LineBreakMode="NoWrap"
+                                           Style="{DynamicResource ListItemTextStyle}" 
+                                           FontSize="16" />
+
+                                        <StackLayout.GestureRecognizers>
+                                            <TapGestureRecognizer 
+                                NumberOfTapsRequired="1"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:ItemDetailViewModel}}, Path=SpanTapped}"		
+                                CommandParameter="{Binding .}">
+                                            </TapGestureRecognizer>
+                                        </StackLayout.GestureRecognizers>
+                                    </StackLayout>
+                                </Frame>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+        </StackLayout>
+
+    </StackLayout>
+
+</ContentPage>

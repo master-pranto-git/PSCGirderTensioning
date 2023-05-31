@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:models="clr-namespace:PSCGirderTensioning.Models" 
+             xmlns:local="clr-namespace:PSCGirderTensioning.ViewModels"
+             x:Class="PSCGirderTensioning.Views.SpanDetailPage"
+             x:DataType="local:SpanDetailViewModel"
+             BackgroundColor="{AppThemeBinding 
+                        Dark={StaticResource WindowBackgroundColorDark}, 
+                        Light={StaticResource WindowBackgroundColor}}">
+    
+    <ContentPage.BindingContext>
+        <local:SpanDetailViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add Girder" Command="{Binding AddGirderCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" Spacing="20" Padding="10" >
+
+            <StackLayout Orientation="Horizontal">
+                <!--<Label Text="Bridge Name: " FontSize="Medium" LineBreakMode="WordWrap"/>-->
+                <Label Text="{Binding BridgeName, Mode=OneWay}" VerticalOptions="FillAndExpand" FontSize="Medium" LineBreakMode="WordWrap"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <Label Text="District:" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center"/>
+                <Label Text="{Binding District, Mode=OneWay}" FontSize="Medium" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
+                <Label Text="Upazilla:" FontSize="Medium" HorizontalOptions="Center" VerticalOptions="Center" />
+                <Label Text="{Binding Upazilla, Mode=OneWay}" FontSize="Medium" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <Label Text="{Binding SpanNoText, Mode=OneWay}" FontSize="Small" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+            </StackLayout>
+            <StackLayout>
+                <Label Text="Girder Details" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="CenterAndExpand"/>
+                <RefreshView Command="{Binding LoadGirdersCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                    <CollectionView x:Name="GirdersListView"
+                        ItemsSource="{Binding Girders}"
+                        SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="10">
+                                    <Frame Style="{StaticResource CoffeeCard}" HorizontalOptions="FillAndExpand">
+                                        <StackLayout Padding="10" x:DataType="models:GirderInfo">
+
+                                            <Label Text="{Binding girderNoText, Mode=OneWay}" 
+                                           LineBreakMode="NoWrap"
+                                           Style="{DynamicResource ListItemTextStyle}" 
+                                           FontSize="16" />
+
+                                            <Label Text="{Binding girderLengthText, Mode=OneWay}" 
+                                           LineBreakMode="NoWrap"
+                                           Style="{DynamicResource ListItemDetailTextStyle}" 
+                                           FontSize="13" />
+
+                                            <Label Text="{Binding totalCableNosText, Mode=OneWay}"
+                                           LineBreakMode="NoWrap"
+                                           Style="{DynamicResource ListItemDetailTextStyle}" 
+                                           FontSize="13" />
+
+                                            <StackLayout.GestureRecognizers>
+                                                <TapGestureRecognizer 
+                                                NumberOfTapsRequired="1"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:SpanDetailViewModel}}, Path=GirderTapped}"		
+                                                CommandParameter="{Binding .}">
+                                                </TapGestureRecognizer>
+                                            </StackLayout.GestureRecognizers>
+                                        </StackLayout>
+                                    </Frame>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </RefreshView>
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

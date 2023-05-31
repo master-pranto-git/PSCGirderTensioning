@@ -1,0 +1,444 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:PSCGirderTensioning.ViewModels" 
+             xmlns:local1="clr-namespace:PSCGirderTensioning.AdditionalSupports" 
+             xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
+             x:Class="PSCGirderTensioning.Views.CableDetailPage"
+             x:DataType="local:CableDetailViewModel"
+             BackgroundColor="{AppThemeBinding 
+                        Dark={StaticResource WindowBackgroundColorDark}, 
+                        Light={StaticResource WindowBackgroundColor}}">
+    <ContentPage.BindingContext>
+        <local:CableDetailViewModel/>
+    </ContentPage.BindingContext>
+    <!--<ContentPage.Resources>
+        <local1:PercentageValueConverter x:Key="PercentageValueConverter" />
+    </ContentPage.Resources>-->
+    <ContentPage.Content>
+        <ScrollView Padding="10">
+            <StackLayout>
+                <Grid Padding="10" RowSpacing="0" ColumnSpacing="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="130" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Header Row -->
+                    <Label Text="General Information" FontAttributes="Bold" FontSize="Medium" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Bridge Name: " Grid.Row="1" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Label Text="{Binding BridgeName, Mode=OneWay}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="District: " Grid.Row="2" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Label Text="{Binding District, Mode=OneWay}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Upazila: " Grid.Row="3" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Label Text="{Binding Upazilla, Mode=OneWay}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Span/Girder Ref: " Grid.Row="4" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Label Text="{Binding SpanGirderRef, Mode=OneWay}" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+
+                    <!--<Label Text="Girder Length: " Grid.Row="5" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>-->
+                    <Label Text="{Binding GirderLengthText}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Cable Ref. to be stressed:" Grid.Row="6" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Label Text="{Binding CableRefToBeStressedText}" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Girder Casting Date:" Grid.Row="7" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Label Text="{Binding GirderCastingDateText}" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <!--<DatePicker Date="{Binding GirderCastingDate}" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>-->
+
+                    <Label Text="Tensioning Date:" Grid.Row="8" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <DatePicker Date="{Binding TensioningDate}" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Stressing Stage of Cable:" Grid.Row="9" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Label Text="{Binding StressingStage}" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Jacking End Ref: (End1, End2)" Grid.Row="10" FontAttributes="Bold" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Picker Title="End 1: (Select Jack)" Grid.Row="11" Grid.Column="0"
+                            ItemsSource="{Binding Jacks}" 
+                            SelectedItem="{Binding SelectedJackEnd1}">
+                        <Picker.ItemDisplayBinding>
+                            <Binding Path="jackingEndRef" />
+                        </Picker.ItemDisplayBinding>
+                    </Picker>
+
+                    <Picker Title="End 2: Select Jack" Grid.Row="11" Grid.Column="1"
+                            ItemsSource="{Binding Jacks}"
+                            SelectedItem="{Binding SelectedJackEnd2}">
+                        <Picker.ItemDisplayBinding>
+                            <Binding Path="jackingEndRef" />
+                        </Picker.ItemDisplayBinding>
+                    </Picker>
+
+                    <Label Text="Design Information" FontAttributes="Bold" FontSize="Medium" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Dia of Strand (mm):" Grid.Row="13" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Entry Placeholder="Dia of Strand (mm)" Text="{Binding DiaOfStrand_mm, Mode=TwoWay}" IsReadOnly="False" Keyboard="Numeric" Grid.Row="13" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Nos. of Strand/Cable:" Grid.Row="14" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Entry Placeholder="Nos. of Strand/Cable" Text="{Binding NosOfStrand, Mode=TwoWay}" IsReadOnly="False" Keyboard="Numeric" Grid.Row="14" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Anchorage Brand:" Grid.Row="15" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="UTS of Strand (N/mm2):" Grid.Row="16" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Modulus of Elasticity, E (kn/mm2):" Grid.Row="17" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Entry Placeholder="Modulus of Elasticity, E (kn/mm2)" Text="{Binding ModulusOfElasticity_E, Mode=TwoWay}" IsReadOnly="False" Keyboard="Numeric" Grid.Row="17" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Area of Strand, A (mm2):" Grid.Row="18" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Entry Placeholder="Area of Strand, A (mm2)" Text="{Binding AreaOfStrand_mm2, Mode=TwoWay}" IsReadOnly="False" Keyboard="Numeric" Grid.Row="18" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Area of Cable, (mm2):" Grid.Row="19" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Entry Placeholder="Area of Cable, (mm2)" Text="{Binding AreaOfCable_mm2, Mode=TwoWay}" IsReadOnly="True" Keyboard="Numeric" Grid.Row="19" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Design Jacking Force, P:" Grid.Row="20" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Entry Placeholder="Design Jacking Force, P" Text="{Binding DesignJackingForce, Mode=TwoWay}" IsReadOnly="False" Keyboard="Numeric" Grid.Row="20" Grid.Column="1" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+                    <Picker ItemsSource="{Binding DesignForceUnits}"
+                            Grid.Row="20" Grid.Column="2" HorizontalOptions="StartAndExpand"
+                            SelectedItem="{Binding SelectedDesignForceUnit}">
+                        <!--SelectedIndexChanged="OnOptionSelectedIndexChanged"-->
+                        <Picker.ItemDisplayBinding>
+                            <Binding Path="." />
+                        </Picker.ItemDisplayBinding>
+                    </Picker>
+
+                    <Label Text="Design Elongation each end (mm):" Grid.Row="21" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Entry Placeholder="Design Elongation each end (mm)" Text="{Binding DesignElongation, Mode=TwoWay}" IsReadOnly="False" Keyboard="Numeric" Grid.Row="21" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Design Gripping Length (mm):" Grid.Row="22" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Entry Placeholder="Design Gripping Length (mm)" Text="{Binding DesignGrippingLength, Mode=TwoWay}" IsReadOnly="False" Keyboard="Numeric" Grid.Row="22" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Actual Gripping Length (mm):" Grid.Row="23" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Entry Placeholder="Actual Gripping Length (mm)" Text="{Binding ActualGrippingLength, Mode=TwoWay}" IsReadOnly="False" Keyboard="Numeric" Grid.Row="23" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Corrected Elongation for Grip Length, Lambda (mm):" Grid.Row="24" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Entry Placeholder="Corrected Elongation (mm)" Text="{Binding CorrectedElongation, Mode=TwoWay}" IsReadOnly="True" Keyboard="Numeric" Grid.Row="24" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Design Cable Slip (mm):" Grid.Row="25" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Entry Placeholder="Design Cable Slip (mm)" Text="{Binding DesignCableSlip, Mode=TwoWay}" IsReadOnly="False" Keyboard="Numeric" Grid.Row="25" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Design Concrete Strength During Tensioning (N/mm2):" Grid.Row="26" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Entry Placeholder="Design Concrete Strength (N/mm2)" Text="{Binding DesignConcreteStrength, Mode=TwoWay}" IsReadOnly="False" Keyboard="Numeric" Grid.Row="26" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Actual Concrete Strength at the time of Tensioning (N/mm2):" Grid.Row="27" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Entry Placeholder="Actual Concrete Strength (N/mm2)" Text="{Binding ActualConcreteStrength, Mode=TwoWay}" IsReadOnly="False" Keyboard="Numeric" Grid.Row="27" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Stressing and Jack Information" FontAttributes="Bold" FontSize="Medium" Grid.Row="28" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Jack Model No and Efficiency?:" Grid.Row="29" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Label Text="J1:" Grid.Row="30" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Label Text="J2:" Grid.Row="30" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Pressure Gauge Model:" Grid.Row="31" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Label Text="M1:" Grid.Row="32" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Label Text="M2:" Grid.Row="32" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Tensioning Ram Area (cm2):" Grid.Row="33" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Label Text="TA1:" Grid.Row="34" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Label Text="TA2:" Grid.Row="34" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Blocking RAM Area (cm2):" Grid.Row="35" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Label Text="BA1:" Grid.Row="36" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Label Text="BA2:" Grid.Row="36" Grid.Column="1" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Modulus of Elasticity, E1 (kn/mm2):" Grid.Row="37" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Entry Placeholder="Modulus of Elasticity, E1 (kn/mm2)" Text="{Binding ModulusOfElasticity_E1, Mode=TwoWay}" IsReadOnly="False" Keyboard="Numeric" Grid.Row="37" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Actual Area of Strand, A (mm2):" Grid.Row="38" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Entry Placeholder="Actual Area of Strand, A (mm2)" Text="{Binding ActualAreaOfStrand_mm2, Mode=TwoWay}" IsReadOnly="False" Keyboard="Numeric" Grid.Row="38" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Actual Area of Cable (mm2):" Grid.Row="39" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Entry Placeholder="Actual Area of Cable (mm2)" Text="{Binding ActualAreaOfCable_mm2, Mode=TwoWay}" IsReadOnly="True" Keyboard="Numeric" Grid.Row="39" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Corrected Elongation (mm) for actual A1 and E1, lambda x (AE/A1E1):" Grid.Row="40" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Entry Placeholder="Corrected Elongation (mm)" Text="{Binding CorrectedElongation1, Mode=TwoWay}" IsReadOnly="True" Keyboard="Numeric" Grid.Row="40" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Actual Calculated Elongation for Grip Length, lambda1 (mm):" Grid.Row="41" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Entry Placeholder="Actual Calculated Elongation (mm)" Text="{Binding ActualCalculatedElongation, Mode=TwoWay}" IsReadOnly="True" Keyboard="Numeric" Grid.Row="41" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Gross Slip of Cable (mm): (Final Elong. - Net Elong.)" Grid.Row="42" FontAttributes="Bold" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Label Text="At End 1:" Grid.Row="43" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Entry Placeholder="Gross Slip At End 1" Text="{Binding GrossSlipAtEnd1, Mode=TwoWay}" IsReadOnly="True" Keyboard="Numeric" Grid.Row="43" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+                    <Label Text="At End 2:" Grid.Row="44" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Entry Placeholder="Gross Slip At End 2" Text="{Binding GrossSlipAtEnd2, Mode=TwoWay}" IsReadOnly="True" Keyboard="Numeric" Grid.Row="44" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Net Slip at Jack end after lock-off (mm): (Gross Slip - Calculated Elongation lambda1 for grip length)" Grid.Row="45" FontAttributes="Bold" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Label Text="At End 1:" Grid.Row="46" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Entry Placeholder="Net Slip At End 1" Text="{Binding NetSlipAtEnd1, Mode=TwoWay}" IsReadOnly="True" Keyboard="Numeric" Grid.Row="46" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+                    <Label Text="At End 2:" Grid.Row="47" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Entry Placeholder="Net Slip At End 2" Text="{Binding NetSlipAtEnd2, Mode=TwoWay}" IsReadOnly="True" Keyboard="Numeric" Grid.Row="47" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="Record of Stressing and Elongation" FontAttributes="Bold" FontSize="Medium" Grid.Row="48" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+
+                </Grid>
+
+                <ScrollView Orientation="Horizontal">
+                    <Grid Padding="10" RowSpacing="1" ColumnSpacing="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="70" />
+                            <ColumnDefinition Width="150" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Header Row -->
+                        <Label Text="Percentage (%)" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="Actual/Applied Pressure (BAR)" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" HorizontalOptions="Center"/>
+                        <Label Text="Calibrated Gauge Pressure (BAR)" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" HorizontalOptions="Center"/>
+                        <Label Text="Reading for Elongation (mm)" Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="2" HorizontalOptions="Center"/>
+                        <Label Text="Measured Elongation at both Jacking End (mm)" Grid.Row="0" Grid.Column="7" Grid.ColumnSpan="3" HorizontalOptions="Center"/>
+                        <Label Text="Correction Factor for ICJ" Grid.Row="0" Grid.Column="10" Grid.RowSpan="2" HorizontalOptions="Center"/>
+                        <Label Text="Final/Total Elongation (mm)" Grid.Row="0" Grid.Column="11" Grid.ColumnSpan="2" HorizontalOptions="Center"/>
+                        <Label Text="Average Elongation at each end" Grid.Row="0" Grid.Column="13" Grid.RowSpan="2" HorizontalOptions="Center"/>
+                        <Label Text="Remarks (Average Slip at each end)" Grid.Row="0" Grid.Column="14" Grid.RowSpan="2" HorizontalOptions="Center"/>
+
+                        <!-- 2nd Header Row -->
+                        <Label Text="1" Grid.Row="1" Grid.Column="1" HorizontalOptions="CenterAndExpand" />
+                        <Label Text="2" Grid.Row="1" Grid.Column="2" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="1" Grid.Row="1" Grid.Column="3" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="2" Grid.Row="1" Grid.Column="4" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="1" Grid.Row="1" Grid.Column="5" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="2" Grid.Row="1" Grid.Column="6" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="1" Grid.Row="1" Grid.Column="7" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="2" Grid.Row="1" Grid.Column="8" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="Avg." Grid.Row="1" Grid.Column="9" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="1" Grid.Row="1" Grid.Column="11" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="2" Grid.Row="1" Grid.Column="12" HorizontalOptions="CenterAndExpand"/>
+
+                        <!-- Column 1 Percentage -->
+                        <Entry Text="{Binding Percentage1}" IsReadOnly="False" Placeholder="1" Keyboard="Numeric" Grid.Row="2" Grid.Column="0" />
+                        <Entry Text="{Binding Percentage2}" IsReadOnly="False" Placeholder="2" Keyboard="Numeric" Grid.Row="3" Grid.Column="0" />
+                        <Entry Text="{Binding Percentage3}" IsReadOnly="False" Placeholder="3" Keyboard="Numeric" Grid.Row="4" Grid.Column="0" />
+                        <Entry Text="{Binding Percentage4}" IsReadOnly="False" Placeholder="4" Keyboard="Numeric" Grid.Row="5" Grid.Column="0" />
+                        <Entry Text="{Binding Percentage5}" IsReadOnly="False" Placeholder="5" Keyboard="Numeric" Grid.Row="6" Grid.Column="0" />
+                        <Entry Text="{Binding Percentage6}" IsReadOnly="False" Placeholder="6" Keyboard="Numeric" Grid.Row="7" Grid.Column="0" />
+                        <Entry Text="{Binding Percentage7}" IsReadOnly="False" Placeholder="7" Keyboard="Numeric" Grid.Row="8" Grid.Column="0" />
+                        <Entry Text="{Binding Percentage8}" IsReadOnly="False" Placeholder="8" Keyboard="Numeric" Grid.Row="9" Grid.Column="0" />
+                        <Label Text="Lock-Off" Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+                        <!-- Column 2 Actual Pressure 1 -->
+                        <Entry Text="{Binding ActualPressure11}" IsReadOnly="True" Placeholder="1" Keyboard="Numeric" Grid.Row="2" Grid.Column="1" />
+                        <Entry Text="{Binding ActualPressure12}" IsReadOnly="True" Placeholder="2" Keyboard="Numeric" Grid.Row="3" Grid.Column="1" />
+                        <Entry Text="{Binding ActualPressure13}" IsReadOnly="True" Placeholder="3" Keyboard="Numeric" Grid.Row="4" Grid.Column="1" />
+                        <Entry Text="{Binding ActualPressure14}" IsReadOnly="True" Placeholder="4" Keyboard="Numeric" Grid.Row="5" Grid.Column="1" />
+                        <Entry Text="{Binding ActualPressure15}" IsReadOnly="True" Placeholder="5" Keyboard="Numeric" Grid.Row="6" Grid.Column="1" />
+                        <Entry Text="{Binding ActualPressure16}" IsReadOnly="True" Placeholder="6" Keyboard="Numeric" Grid.Row="7" Grid.Column="1" />
+                        <Entry Text="{Binding ActualPressure17}" IsReadOnly="True" Placeholder="7" Keyboard="Numeric" Grid.Row="8" Grid.Column="1" />
+                        <Entry Text="{Binding ActualPressure18}" IsReadOnly="True" Placeholder="8" Keyboard="Numeric" Grid.Row="9" Grid.Column="1" />
+
+                        <!-- Column 3 Actual Pressure 2 -->
+                        <Entry Text="{Binding ActualPressure21}" IsReadOnly="True" Placeholder="1" Keyboard="Numeric" Grid.Row="2" Grid.Column="2" />
+                        <Entry Text="{Binding ActualPressure22}" IsReadOnly="True" Placeholder="2" Keyboard="Numeric" Grid.Row="3" Grid.Column="2" />
+                        <Entry Text="{Binding ActualPressure23}" IsReadOnly="True" Placeholder="3" Keyboard="Numeric" Grid.Row="4" Grid.Column="2" />
+                        <Entry Text="{Binding ActualPressure24}" IsReadOnly="True" Placeholder="4" Keyboard="Numeric" Grid.Row="5" Grid.Column="2" />
+                        <Entry Text="{Binding ActualPressure25}" IsReadOnly="True" Placeholder="5" Keyboard="Numeric" Grid.Row="6" Grid.Column="2" />
+                        <Entry Text="{Binding ActualPressure26}" IsReadOnly="True" Placeholder="6" Keyboard="Numeric" Grid.Row="7" Grid.Column="2" />
+                        <Entry Text="{Binding ActualPressure27}" IsReadOnly="True" Placeholder="7" Keyboard="Numeric" Grid.Row="8" Grid.Column="2" />
+                        <Entry Text="{Binding ActualPressure28}" IsReadOnly="True" Placeholder="8" Keyboard="Numeric" Grid.Row="9" Grid.Column="2" />
+
+                        <!-- Column 4 Calibrated Pressure 1 -->
+                        <Entry Text="{Binding CalibratedPressure11}" IsReadOnly="True" Placeholder="1" Keyboard="Numeric" Grid.Row="2" Grid.Column="3" />
+                        <Entry Text="{Binding CalibratedPressure12}" IsReadOnly="True" Placeholder="2" Keyboard="Numeric" Grid.Row="3" Grid.Column="3" />
+                        <Entry Text="{Binding CalibratedPressure13}" IsReadOnly="True" Placeholder="3" Keyboard="Numeric" Grid.Row="4" Grid.Column="3" />
+                        <Entry Text="{Binding CalibratedPressure14}" IsReadOnly="True" Placeholder="4" Keyboard="Numeric" Grid.Row="5" Grid.Column="3" />
+                        <Entry Text="{Binding CalibratedPressure15}" IsReadOnly="True" Placeholder="5" Keyboard="Numeric" Grid.Row="6" Grid.Column="3" />
+                        <Entry Text="{Binding CalibratedPressure16}" IsReadOnly="True" Placeholder="6" Keyboard="Numeric" Grid.Row="7" Grid.Column="3" />
+                        <Entry Text="{Binding CalibratedPressure17}" IsReadOnly="True" Placeholder="7" Keyboard="Numeric" Grid.Row="8" Grid.Column="3" />
+                        <Entry Text="{Binding CalibratedPressure18}" IsReadOnly="True" Placeholder="8" Keyboard="Numeric" Grid.Row="9" Grid.Column="3" />
+
+                        <!-- Column 5 Calibrated Pressure 2 -->
+                        <Entry Text="{Binding CalibratedPressure21}" IsReadOnly="True" Placeholder="1" Keyboard="Numeric" Grid.Row="2" Grid.Column="4" />
+                        <Entry Text="{Binding CalibratedPressure22}" IsReadOnly="True" Placeholder="2" Keyboard="Numeric" Grid.Row="3" Grid.Column="4" />
+                        <Entry Text="{Binding CalibratedPressure23}" IsReadOnly="True" Placeholder="3" Keyboard="Numeric" Grid.Row="4" Grid.Column="4" />
+                        <Entry Text="{Binding CalibratedPressure24}" IsReadOnly="True" Placeholder="4" Keyboard="Numeric" Grid.Row="5" Grid.Column="4" />
+                        <Entry Text="{Binding CalibratedPressure25}" IsReadOnly="True" Placeholder="5" Keyboard="Numeric" Grid.Row="6" Grid.Column="4" />
+                        <Entry Text="{Binding CalibratedPressure26}" IsReadOnly="True" Placeholder="6" Keyboard="Numeric" Grid.Row="7" Grid.Column="4" />
+                        <Entry Text="{Binding CalibratedPressure27}" IsReadOnly="True" Placeholder="7" Keyboard="Numeric" Grid.Row="8" Grid.Column="4" />
+                        <Entry Text="{Binding CalibratedPressure28}" IsReadOnly="True" Placeholder="8" Keyboard="Numeric" Grid.Row="9" Grid.Column="4" />
+
+                        <!-- Column 6 Reading for Elongation 1  -->
+                        <Entry Text="{Binding ElongationReading11}" IsReadOnly="False" Placeholder="1" Keyboard="Numeric" Grid.Row="2" Grid.Column="5" />
+                        <Entry Text="{Binding ElongationReading12}" IsReadOnly="False" Placeholder="2" Keyboard="Numeric" Grid.Row="3" Grid.Column="5" />
+                        <Entry Text="{Binding ElongationReading13}" IsReadOnly="False" Placeholder="3" Keyboard="Numeric" Grid.Row="4" Grid.Column="5" />
+                        <Entry Text="{Binding ElongationReading14}" IsReadOnly="False" Placeholder="4" Keyboard="Numeric" Grid.Row="5" Grid.Column="5" />
+                        <Entry Text="{Binding ElongationReading15}" IsReadOnly="False" Placeholder="5" Keyboard="Numeric" Grid.Row="6" Grid.Column="5" />
+                        <Entry Text="{Binding ElongationReading16}" IsReadOnly="False" Placeholder="6" Keyboard="Numeric" Grid.Row="7" Grid.Column="5" />
+                        <Entry Text="{Binding ElongationReading17}" IsReadOnly="False" Placeholder="7" Keyboard="Numeric" Grid.Row="8" Grid.Column="5" />
+                        <Entry Text="{Binding ElongationReading18}" IsReadOnly="False" Placeholder="8" Keyboard="Numeric" Grid.Row="9" Grid.Column="5" />
+                        <Entry Text="{Binding LockOff1}" IsReadOnly="False" Placeholder="Lock-Off" Keyboard="Numeric" Grid.Row="10" Grid.Column="5" />
+
+                        <!-- Column 7 Reading for Elongation 2  -->
+                        <Entry Text="{Binding ElongationReading21}" IsReadOnly="False" Placeholder="1" Keyboard="Numeric" Grid.Row="2" Grid.Column="6" />
+                        <Entry Text="{Binding ElongationReading22}" IsReadOnly="False" Placeholder="2" Keyboard="Numeric" Grid.Row="3" Grid.Column="6" />
+                        <Entry Text="{Binding ElongationReading23}" IsReadOnly="False" Placeholder="3" Keyboard="Numeric" Grid.Row="4" Grid.Column="6" />
+                        <Entry Text="{Binding ElongationReading24}" IsReadOnly="False" Placeholder="4" Keyboard="Numeric" Grid.Row="5" Grid.Column="6" />
+                        <Entry Text="{Binding ElongationReading25}" IsReadOnly="False" Placeholder="5" Keyboard="Numeric" Grid.Row="6" Grid.Column="6" />
+                        <Entry Text="{Binding ElongationReading26}" IsReadOnly="False" Placeholder="6" Keyboard="Numeric" Grid.Row="7" Grid.Column="6" />
+                        <Entry Text="{Binding ElongationReading27}" IsReadOnly="False" Placeholder="7" Keyboard="Numeric" Grid.Row="8" Grid.Column="6" />
+                        <Entry Text="{Binding ElongationReading28}" IsReadOnly="False" Placeholder="8" Keyboard="Numeric" Grid.Row="9" Grid.Column="6" />
+                        <Entry Text="{Binding LockOff2}" IsReadOnly="False" Placeholder="Lock-Off" Keyboard="Numeric" Grid.Row="10" Grid.Column="6" />
+
+                        <!-- Column 8 Measured Elongation 1  -->
+                        <Entry Text="0" IsReadOnly="True" Placeholder="-" Keyboard="Numeric" Grid.Row="2" Grid.Column="7" />
+                        <Entry Text="{Binding MeasuredElongation12}" IsReadOnly="True" Placeholder="2" Keyboard="Numeric" Grid.Row="3" Grid.Column="7" />
+                        <Entry Text="{Binding MeasuredElongation13}" IsReadOnly="True" Placeholder="3" Keyboard="Numeric" Grid.Row="4" Grid.Column="7" />
+                        <Entry Text="{Binding MeasuredElongation14}" IsReadOnly="True" Placeholder="4" Keyboard="Numeric" Grid.Row="5" Grid.Column="7" />
+                        <Entry Text="{Binding MeasuredElongation15}" IsReadOnly="True" Placeholder="5" Keyboard="Numeric" Grid.Row="6" Grid.Column="7" />
+                        <Entry Text="{Binding MeasuredElongation16}" IsReadOnly="True" Placeholder="6" Keyboard="Numeric" Grid.Row="7" Grid.Column="7" />
+                        <Entry Text="{Binding MeasuredElongation17}" IsReadOnly="True" Placeholder="7" Keyboard="Numeric" Grid.Row="8" Grid.Column="7" />
+                        <Entry Text="{Binding MeasuredElongation18}" IsReadOnly="True" Placeholder="8" Keyboard="Numeric" Grid.Row="9" Grid.Column="7" />
+
+                        <!-- Column 9 Measured Elongation 2  -->
+                        <Entry Text="0" IsReadOnly="True" Placeholder="-" Keyboard="Numeric" Grid.Row="2" Grid.Column="8" />
+                        <Entry Text="{Binding MeasuredElongation22}" IsReadOnly="True" Placeholder="2" Keyboard="Numeric" Grid.Row="3" Grid.Column="8" />
+                        <Entry Text="{Binding MeasuredElongation23}" IsReadOnly="True" Placeholder="3" Keyboard="Numeric" Grid.Row="4" Grid.Column="8" />
+                        <Entry Text="{Binding MeasuredElongation24}" IsReadOnly="True" Placeholder="4" Keyboard="Numeric" Grid.Row="5" Grid.Column="8" />
+                        <Entry Text="{Binding MeasuredElongation25}" IsReadOnly="True" Placeholder="5" Keyboard="Numeric" Grid.Row="6" Grid.Column="8" />
+                        <Entry Text="{Binding MeasuredElongation26}" IsReadOnly="True" Placeholder="6" Keyboard="Numeric" Grid.Row="7" Grid.Column="8" />
+                        <Entry Text="{Binding MeasuredElongation27}" IsReadOnly="True" Placeholder="7" Keyboard="Numeric" Grid.Row="8" Grid.Column="8" />
+                        <Entry Text="{Binding MeasuredElongation28}" IsReadOnly="True" Placeholder="8" Keyboard="Numeric" Grid.Row="9" Grid.Column="8" />
+
+                        <!-- Column 10 Measured Elongation Avg.  -->
+                        <Entry Text="0" IsReadOnly="True" Placeholder="-" Keyboard="Numeric" Grid.Row="2" Grid.Column="9" />
+                        <Entry Text="{Binding MeasuredElongation32}" IsReadOnly="True" Placeholder="2" Keyboard="Numeric" Grid.Row="3" Grid.Column="9" />
+                        <Entry Text="{Binding MeasuredElongation33}" IsReadOnly="True" Placeholder="3" Keyboard="Numeric" Grid.Row="4" Grid.Column="9" />
+                        <Entry Text="{Binding MeasuredElongation34}" IsReadOnly="True" Placeholder="4" Keyboard="Numeric" Grid.Row="5" Grid.Column="9" />
+                        <Entry Text="{Binding MeasuredElongation35}" IsReadOnly="True" Placeholder="5" Keyboard="Numeric" Grid.Row="6" Grid.Column="9" />
+                        <Entry Text="{Binding MeasuredElongation36}" IsReadOnly="True" Placeholder="6" Keyboard="Numeric" Grid.Row="7" Grid.Column="9" />
+                        <Entry Text="{Binding MeasuredElongation37}" IsReadOnly="True" Placeholder="7" Keyboard="Numeric" Grid.Row="8" Grid.Column="9" />
+                        <Entry Text="{Binding MeasuredElongation38}" IsReadOnly="True" Placeholder="8" Keyboard="Numeric" Grid.Row="9" Grid.Column="9" />
+
+                        <!-- Column 11 Correction Factor for ICJ  -->
+                        <Entry Text="{Binding CorrectionFactorForICJ}" IsReadOnly="True" Placeholder="1" Keyboard="Numeric" Grid.Row="2" Grid.Column="10" Grid.RowSpan="8" />
+
+                        <!-- Column 12 Final Elongation 1  -->
+                        <Entry Text="" IsReadOnly="True" Placeholder="1" Keyboard="Numeric" Grid.Row="2" Grid.Column="11" />
+                        <Entry Text="" IsReadOnly="True" Placeholder="2" Keyboard="Numeric" Grid.Row="3" Grid.Column="11" />
+                        <Entry Text="" IsReadOnly="True" Placeholder="3" Keyboard="Numeric" Grid.Row="4" Grid.Column="11" />
+                        <Entry Text="" IsReadOnly="True" Placeholder="4" Keyboard="Numeric" Grid.Row="5" Grid.Column="11" />
+                        <Entry Text="" IsReadOnly="True" Placeholder="5" Keyboard="Numeric" Grid.Row="6" Grid.Column="11" />
+                        <Entry Text="" IsReadOnly="True" Placeholder="6" Keyboard="Numeric" Grid.Row="7" Grid.Column="11" />
+                        <Entry Text="" IsReadOnly="True" Placeholder="7" Keyboard="Numeric" Grid.Row="8" Grid.Column="11" />
+                        <Entry Text="" IsReadOnly="True" Placeholder="8" Keyboard="Numeric" Grid.Row="9" Grid.Column="11" />
+
+                        <!-- Column 13 Final Elongation 2  -->
+                        <Entry Text="" IsReadOnly="True" Placeholder="1" Keyboard="Numeric" Grid.Row="2" Grid.Column="12" />
+                        <Entry Text="" IsReadOnly="True" Placeholder="2" Keyboard="Numeric" Grid.Row="3" Grid.Column="12" />
+                        <Entry Text="" IsReadOnly="True" Placeholder="3" Keyboard="Numeric" Grid.Row="4" Grid.Column="12" />
+                        <Entry Text="" IsReadOnly="True" Placeholder="4" Keyboard="Numeric" Grid.Row="5" Grid.Column="12" />
+                        <Entry Text="" IsReadOnly="True" Placeholder="5" Keyboard="Numeric" Grid.Row="6" Grid.Column="12" />
+                        <Entry Text="" IsReadOnly="True" Placeholder="6" Keyboard="Numeric" Grid.Row="7" Grid.Column="12" />
+                        <Entry Text="" IsReadOnly="True" Placeholder="7" Keyboard="Numeric" Grid.Row="8" Grid.Column="12" />
+                        <Entry Text="" IsReadOnly="True" Placeholder="8" Keyboard="Numeric" Grid.Row="9" Grid.Column="12" />
+
+                        <!-- Column 14 Average Elongation  -->
+                        <Editor Text="{Binding AverageElongationText}" AutoSize="Disabled" IsReadOnly="True" Placeholder="1" Grid.Row="2" Grid.Column="13" Grid.RowSpan="8" />
+
+                        <!-- Column 15 Remarks (Average Slip)  -->
+                        <Editor Text="{Binding AverageSlipText}" IsReadOnly="True" AutoSize="Disabled" Placeholder="1" Grid.Row="2" Grid.Column="14" Grid.RowSpan="8" />
+                    </Grid>
+                </ScrollView>
+                <Grid Padding="10" RowSpacing="1" ColumnSpacing="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="350" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Header Row -->
+                    <Label Text="Graph" FontAttributes="Bold" FontSize="Medium" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                    <chart:SfChart x:Name="theChart" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+                        <chart:SfChart.PrimaryAxis>
+                            <chart:NumericalAxis Interval="10" >
+                                <chart:NumericalAxis.Title>
+                                    <chart:ChartAxisTitle Text = "Elongation (mm)" />
+                                </chart:NumericalAxis.Title>
+                            </chart:NumericalAxis>
+                        </chart:SfChart.PrimaryAxis>
+                        <chart:SfChart.SecondaryAxis>
+                            <chart:NumericalAxis Interval="10" >
+                                <chart:NumericalAxis.Title>
+                                    <chart:ChartAxisTitle Text = "Percentage (%)" />
+                                </chart:NumericalAxis.Title>
+                            </chart:NumericalAxis>
+                        </chart:SfChart.SecondaryAxis>
+                        <chart:ScatterSeries ItemsSource="{Binding ScatterData}" 
+                                             XBindingPath="XValue" YBindingPath="YValue">
+                            <chart:ScatterSeries.Trendlines>
+                                <chart:ChartTrendlineCollection>
+                                    <chart:ChartTrendline IsVisibleOnLegend="True" Type="Linear" Label="Linear"
+                                                          
+                                                          BackwardForecast="{Binding CorrectionFactorForICJ}" ForwardForecast="20"/>
+                                </chart:ChartTrendlineCollection>
+                            </chart:ScatterSeries.Trendlines>
+                        </chart:ScatterSeries>
+                    </chart:SfChart>
+
+                    <Label Text="{Binding TrendlineEquation}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    
+                    <Label Text="Remarks (if any):" Grid.Row="3" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="CenterAndExpand"/>
+                    <Editor Placeholder="Remarks (if any)" Text="{Binding Remarks, Mode=TwoWay}" IsReadOnly="False" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" AutoSize="TextChanges" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand"/>
+                </Grid>
+
+                <!--<StackLayout Orientation="Horizontal">
+                    <Button Text="View Plot" Command="{Binding PlotViewCommand}" HorizontalOptions="FillAndExpand"></Button>
+                    <Button Text="Calculate Correc. Factor for ICJ" Command="{Binding CalculateCorrecFactorCommand}" HorizontalOptions="FillAndExpand"></Button>
+                </StackLayout>-->
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
+                    <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+                </StackLayout>
+            </StackLayout>
+
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

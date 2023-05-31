@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:PSCGirderTensioning.ViewModels"
+             Shell.PresentationMode="ModalAnimated"
+             x:Class="PSCGirderTensioning.Views.NewGirderPage">
+    <ContentPage.BindingContext>
+        <local:NewGirderViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Label Text="Girder No:" FontSize="Medium" />
+                <Entry Text="{Binding GirderNo, Mode=TwoWay}" Placeholder="Girder No (i.e. 1)" Keyboard="Numeric" FontSize="Medium" />
+                <Label Text="Girder Length (m):" FontSize="Medium" />
+                <Entry Text="{Binding GirderLength, Mode=TwoWay}" Placeholder="Girder Length in meter" Keyboard="Numeric" FontSize="Medium" />
+                <Label Text="Girder Casting Date:" FontSize="Medium" />
+                <DatePicker Date="{Binding GirderCastingDate, Mode=TwoWay}" HorizontalOptions="StartAndExpand"/>
+                <Label Text="Total Cable Nos:" FontSize="Medium" />
+                <Entry Text="{Binding TotalCableNos, Mode=TwoWay}" Placeholder="Total cable nos of the Girder (i.e. 5)" Keyboard="Numeric" FontSize="Medium" />
+                
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
+                    <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+        
+    </ContentPage.Content>
+</ContentPage>

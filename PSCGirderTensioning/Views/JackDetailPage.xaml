@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:PSCGirderTensioning.ViewModels"
+             x:Class="PSCGirderTensioning.Views.JackDetailPage"
+             BackgroundColor="{AppThemeBinding 
+                        Dark={StaticResource WindowBackgroundColorDark}, 
+                        Light={StaticResource WindowBackgroundColor}}">
+    <ContentPage.BindingContext>
+        <local:JackDetailViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Remove" Command="{Binding RemoveJackCommand}" />
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <StackLayout Spacing="20" Padding="15">
+            <Label Text="Jacking End Reference:" FontAttributes="Bold" FontSize="Medium" />
+            <Label Text="{Binding JackingEndRef}" FontSize="Medium"/>
+            <Label Text="Equation:" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="StartAndExpand" VerticalOptions="Center"/>
+            <Label Text="{Binding JackEquation}" FontSize="Medium" HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
